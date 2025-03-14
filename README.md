@@ -7,6 +7,7 @@
   * [Summary](#summary)
   * [Usage of Interfaces](#usage-of-interfaces)
   * [Factory Method](#factory-method)
+  * [Builder](#builder)
 
 ## Summary
 
@@ -72,3 +73,11 @@ This repository is to capture not only design patterns in action but also any co
         person := fact.NewPerson()
         agent := fact.NewAgent()
         ```
+
+##  Builder
+
+  - Separate the construction of a complex object or Segregating the builder into multiple builders. It is used to construct a complex object step by step and the final step will return the object. Check example [here](https://github.com/ishan16696/design-patterns-Golang/tree/main/Builder)
+
+    ```go
+    emp1 := fact.SetName("Ishan").SetTechStack([]string{"C++", "Docker", "Go"}).BuildDev()
+    ```
