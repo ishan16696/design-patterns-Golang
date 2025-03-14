@@ -6,6 +6,7 @@
   * [Table of Contents](#table-of-contents)
   * [Summary](#summary)
   * [Usage of Interfaces](#usage-of-interfaces)
+  * [Factory Method](#factory-method)
 
 ## Summary
 
@@ -50,3 +51,24 @@ This repository is to capture not only design patterns in action but also any co
         }
         ```
 
+## Factory Method
+
+ - Define an interface for creating an object, but let subclasses/Methods decide which class to instantiate. Defer the instantiation to subclasses/Methods. check example [here](https://github.com/ishan16696/design-patterns-Golang/tree/main/factoryMethod).
+
+    1. Define `Factory` iterface.
+
+    2. Defer the instantiation of object to subclasses/Methods.
+
+        ```go
+        type Factory interface {
+            NewPerson() *person
+            NewAgent() *secretAgent
+        }
+
+
+        fact := factory.NewFactory(config)
+
+        // with factory method, we can construct the instances of both person/agent.
+        person := fact.NewPerson()
+        agent := fact.NewAgent()
+        ```
