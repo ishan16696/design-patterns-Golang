@@ -15,8 +15,8 @@ This repository is to capture not only design patterns in action but also any co
 
 ## Usage of Interfaces
 
-   - [To make sure all methods inside interface should be implemented](https://github.com/ishan16696/design-patterns-Golang/tree/main/Interface2)
-
+   - [To enforce at compile time all methods inside interface should be implemented.](https://github.com/ishan16696/design-patterns-Golang/tree/main/Interface2)
+  
         ```go
         type ShapeCalculator interface {
             Area() int
@@ -28,7 +28,8 @@ This repository is to capture not only design patterns in action but also any co
             Height int
         }
 
-        // following line guarantee that struct `Rectangle` must have to implement all methods of interface `ShapeCalculator`
+        // following line guarantee that struct `Rectangle` must have to implement all methods of interface `ShapeCalculator`.
+        // purpose of this pattern is to enforce at compile time that `*Rectangle` implements the interface.
         var _ ShapeCalculator = (*Rectangle)(nil)
 
         // another way of using this
@@ -74,10 +75,11 @@ This repository is to capture not only design patterns in action but also any co
         agent := fact.NewAgent()
         ```
 
-##  Builder
+## Builder
 
-  - Separate the construction of a complex object or Segregating the builder into multiple builders. It is used to construct a complex object step by step and the final step will return the object. Check example [here](https://github.com/ishan16696/design-patterns-Golang/tree/main/Builder)
+  - Separate the construction of a complex object or Segregating the builder into multiple builders. It is used to construct a complex object step by step and the final step will return the object. Check example [here](https://github.com/ishan16696/design-patterns-Golang/tree/main/Builder).
 
     ```go
     emp1 := fact.SetName("Ishan").SetTechStack([]string{"C++", "Docker", "Go"}).BuildDev()
     ```
+
