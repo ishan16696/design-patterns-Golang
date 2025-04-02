@@ -9,6 +9,7 @@
   * [Factory Method](#factory-method)
   * [Builder](#builder)
   * [Decorator](#decorator)
+  * [Singleton](#singleton)
   <!-- * [Observer Pattern](#observer-pattern) -->
 
 ## Summary
@@ -82,10 +83,35 @@ This repository is to capture not only design patterns in action but also any co
   - It's a creational design pattern that separate the construction of a complex object or segregating the one builder into multiple builders. It is used to construct a complex object step by step and the final step will return the object. Check example [here](https://github.com/ishan16696/design-patterns-Golang/tree/main/Builder).
 
     ```go
-
     // instead of passing all parameters at once via constructor to create object, we can use builder pattern to create object step by step.
     emp1 := dev.SetName("Ishan").SetTechStack([]string{"C++", "Docker", "Go"}).SetEmpID(2).BuildDev()
     ```
+
+## Singleton
+
+  - It's creational desing pattern that ensures that a class has only one instance and provides a global point of access to it. This is useful when exactly one object is needed to coordinate actions across a system. Check example [here](https://github.com/ishan16696/design-patterns-Golang/tree/main/Singleton).
+
+    ```go
+    type Singleton struct {
+        // Your singleton fields
+    }
+
+    var (
+        instance *Singleton
+        once     sync.Once
+    )
+
+    func GetInstance() *Singleton {
+        once.Do(func() {
+            instance = &Singleton{
+                // ...
+            }
+        })
+        return instance
+    }
+    ```
+
+    > Note: Always use `sync.Once` in Go for thread safe.
 
 ## Decorator
 
