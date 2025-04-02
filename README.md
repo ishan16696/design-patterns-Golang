@@ -118,7 +118,7 @@ This repository is to capture not only design patterns in action but also any co
   - It's a structural design pattern that allows you to dynamically add new behavior to existing objects by placing them inside special wrapper objects. check example [here](https://github.com/ishan16696/design-patterns-Golang/tree/main/Decorator).
 
     ```go
-    // Base object
+    // Base existing object
     type Book struct {
         ...
     }
@@ -127,9 +127,10 @@ This repository is to capture not only design patterns in action but also any co
     type BorrowableBook struct {
         Book       // Embed the original object
         IsBorrowed bool
+        ...
     }
 
-    // Adds new behavior using decorator object
+    // Adds new behavior "Borrow()" using decorator object
     func (b *BorrowableBook) Borrow() {
         if b.IsBorrowed {
             ...
