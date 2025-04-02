@@ -4,61 +4,47 @@ import (
 	"fmt"
 )
 
+type Employee struct {
+	empID int
+	name  string
+	tech  []string
+}
+
+type EmployeeBuilder interface {
+	SetName(string) EmployeeBuilder
+	SetTechStack([]string) EmployeeBuilder
+	SetEmpID(int) EmployeeBuilder
+	BuildDev() *Employee
+}
+
 type Developer struct {
-	name string
-	tech []string
+	dev Employee
 }
 
-type Consultant struct {
-	name   string
-	fields []string
+func (d *Developer) SetName(name string) EmployeeBuilder {
+	d.dev.name = name
+	return d
 }
 
-type EmployeeBuild struct {
-	name   string
-	tech   []string
-	fields []string
+func (d *Developer) SetTechStack(tech []string) EmployeeBuilder {
+	d.dev.tech = tech
+	return d
 }
 
-func (e *EmployeeBuild) SetName(name string) *EmployeeBuild {
-	e.name = name
-	return e
+func (d *Developer) SetEmpID(empID int) EmployeeBuilder {
+	d.dev.empID = empID
+	return d
 }
 
-func (e *EmployeeBuild) SetTechStack(tech []string) *EmployeeBuild {
-	e.tech = tech
-	return e
+func (d *Developer) BuildDev() *Employee {
+	return &Employee{
+		empID: d.dev.empID,
+		tech:  d.dev.tech,
+		name:  d.dev.name,
+	}
 }
 
-func (c *EmployeeBuild) SetFields(f []string) *EmployeeBuild {
-	c.fields = f
-	return c
-}
-
-func (e *Developer) AssignProject() {
+func (e *Employee) AssignProject() {
 	fmt.Printf("Welcome %s\n", e.name)
 	fmt.Printf("Assigning the project acc to tech: %v\n", e.tech)
-}
-
-func (c *Consultant) AssignProject() {
-	fmt.Printf("Welcome %s\n", c.name)
-	fmt.Printf("Assigning the project acc to fileds: %v\n", c.fields)
-}
-
-func NewEmployeeBuild() *EmployeeBuild {
-	return &EmployeeBuild{}
-}
-
-func (e *EmployeeBuild) BuildDev() *Developer {
-	return &Developer{
-		name: e.name,
-		tech: e.tech,
-	}
-}
-
-func (e *EmployeeBuild) BuildCon() *Consultant {
-	return &Consultant{
-		name:   e.name,
-		fields: e.fields,
-	}
 }

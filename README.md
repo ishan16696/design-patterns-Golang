@@ -8,6 +8,7 @@
   * [Usage of Interfaces](#usage-of-interfaces)
   * [Factory Method](#factory-method)
   * [Builder](#builder)
+  <!-- * [Observer Pattern](#observer-pattern) -->
 
 ## Summary
 
@@ -57,7 +58,7 @@ This repository is to capture not only design patterns in action but also any co
 
  - Define an interface for creating an object, but let subclasses/Methods decide which class to instantiate. Defer the instantiation to subclasses/Methods. check example [here](https://github.com/ishan16696/design-patterns-Golang/tree/main/factoryMethod).
 
-    1. Define `Factory` iterface.
+    1. Define `Factory` interface.
 
     2. Defer the instantiation of object to subclasses/Methods.
 
@@ -67,7 +68,7 @@ This repository is to capture not only design patterns in action but also any co
             NewAgent() *secretAgent
         }
 
-
+        // create object of factory
         fact := factory.NewFactory(config)
 
         // with factory method, we can construct the instances of both person/agent.
@@ -77,9 +78,11 @@ This repository is to capture not only design patterns in action but also any co
 
 ## Builder
 
-  - Separate the construction of a complex object or Segregating the builder into multiple builders. It is used to construct a complex object step by step and the final step will return the object. Check example [here](https://github.com/ishan16696/design-patterns-Golang/tree/main/Builder).
+  - It's a creational design pattern that separate the construction of a complex object or segregating the one builder into multiple builders. It is used to construct a complex object step by step and the final step will return the object. Check example [here](https://github.com/ishan16696/design-patterns-Golang/tree/main/Builder).
 
     ```go
-    emp1 := fact.SetName("Ishan").SetTechStack([]string{"C++", "Docker", "Go"}).BuildDev()
+
+    // instead of passing all parameters at once via constructor to create object, we can use builder pattern to create object step by step.
+    emp1 := dev.SetName("Ishan").SetTechStack([]string{"C++", "Docker", "Go"}).SetEmpID(2).BuildDev()
     ```
 
