@@ -138,3 +138,34 @@ This repository is to capture not only design patterns in action but also any co
         ...
     }
     ```
+
+## Proxy
+
+  - It's a structural design pattern that act as a interface or middleman for another object to control access to it. A proxy can be interface to anything: a network connection, delay in expensive object creation etc. check example [here](https://github.com/ishan16696/design-patterns-Golang/tree/main/Proxy).
+
+    ```go
+    type Database interface {
+        Query(string) string
+    }
+
+    type RealDatabase struct {
+        // Database fields
+    }
+
+    func (db *RealDatabase) Query(query string) string {
+    // query directly access to db
+    }
+
+    // ---- Proxy ----
+    type DatabaseProxy struct {
+        db      *RealDatabase
+        cache   map[string]string
+    }
+
+    // Client can only call DatabaseProxy's Query as only proxy method object creation is possible.
+    func (p *DatabaseProxy) Query(query string) string {
+        // this method act as middleman for quering the db with custom functionality can be added like cache etc.
+    }
+    ```
+
+  > Note: The difference b/w decorator and proxy pattern is decorator add more features to object whereas proxy manages how/when object is accessed.
