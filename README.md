@@ -10,6 +10,7 @@
   * [Builder](#builder)
   * [Decorator](#decorator)
   * [Singleton](#singleton)
+  * [Proxy](#proxy)
   <!-- * [Observer Pattern](#observer-pattern) -->
 
 ## Summary
@@ -111,7 +112,8 @@ This repository is to capture not only design patterns in action but also any co
     }
     ```
 
-    > Note: Always use `sync.Once` in Go for thread safe.
+  > [!Note]
+  > Always use `sync.Once` in Go for thread safe.
 
 ## Decorator
 
@@ -168,4 +170,30 @@ This repository is to capture not only design patterns in action but also any co
     }
     ```
 
-  > Note: The difference b/w decorator and proxy pattern is decorator add more features to object whereas proxy manages how/when object is accessed.
+  > [!Note]
+  > The difference b/w decorator and proxy pattern is decorator add more features to object whereas proxy manages how/when object is accessed.
+
+<!-- ## Observer Pattern
+
+ - It's  allows a type instance to "publish" events to other type instances ("observers/listerners") who wish to be updated when a particular event occurs. Check example [here](https://github.com/ishan16696/design-patterns-Golang/tree/main/Observer).
+
+   1. Define an Listerner/Observer
+
+   2. Define an Notifer(on which listerners wants to listen for an event)
+
+    ```go
+    // Observer defines a standard interface for instances that wish to list for the occurrence of a specific event.
+    type Observer interface {
+        OnNotify(Event)
+    }
+
+    // Notifier is the instance being observed.
+    type Notifier interface {
+        // Register allows an instance to register itself to listen/observe.
+        Register(Observer)
+        // DeRegister allows an instance to de-register itself from listeners/observers.
+        DeRegister(Observer)
+        // Notify publishes new events to listeners.
+        Notify(Event)
+    }
+    ``` -->
