@@ -11,7 +11,9 @@
   * [Decorator](#decorator)
   * [Singleton](#singleton)
   * [Proxy](#proxy)
-  <!-- * [Observer Pattern](#observer-pattern) -->
+  * [Fan-in](#fan-in)
+  <!-- * [Fan-out](#fan-out)
+  * [Observer Pattern](#observer-pattern)  -->
 
 ## Summary
 
@@ -173,27 +175,52 @@ This repository is to capture not only design patterns in action but also any co
   > [!Note]
   > The difference b/w decorator and proxy pattern is decorator add more features to object whereas proxy manages how/when object is accessed.
 
-<!-- ## Observer Pattern
+## Fan-in
 
- - It's  allows a type instance to "publish" events to other type instances ("observers/listerners") who wish to be updated when a particular event occurs. Check example [here](https://github.com/ishan16696/design-patterns-Golang/tree/main/Observer).
+  -  Fan-in is a concurrency pattern combines multiple inputs into one single output channel. Basically, we multiplex our inputs. Check example [here](https://github.com/ishan16696/design-patterns-Golang/tree/main/Fan-in).
 
-   1. Define an Listerner/Observer
+       ```text
 
-   2. Define an Notifer(on which listerners wants to listen for an event)
+        +----------+
+        | Producer1|---\
+        +----------+    \
+                            \
+        +----------+      \       +---------+
+        | Producer2|------->----->| Combined|--> Consumer
+        +----------+      /       | Channel |
+                            /        +---------+
+        +----------+    /
+        | Producer3|---/
+        +----------+
+       ```
 
-    ```go
-    // Observer defines a standard interface for instances that wish to list for the occurrence of a specific event.
-    type Observer interface {
-        OnNotify(Event)
-    }
+     ```go
 
-    // Notifier is the instance being observed.
-    type Notifier interface {
-        // Register allows an instance to register itself to listen/observe.
-        Register(Observer)
-        // DeRegister allows an instance to de-register itself from listeners/observers.
-        DeRegister(Observer)
-        // Notify publishes new events to listeners.
-        Notify(Event)
-    }
-    ``` -->
+        // Merge different channels in one channel
+        func fanIn(inputs ...<-chan string) <-chan string {
+            var wg sync.WaitGroup
+
+            out := make(chan string)
+            wg.Add(len(inputs))
+
+            // Start an send goroutine for each input channel.
+            // send copies all values from channel c to out, then calls wg.Done.
+            send := func(c <-chan string) {
+                for n := range c {
+                    out <- n
+                }
+                wg.Done()
+            }
+
+            for _, c := range inputs {
+                go send(c)
+            }
+
+            // Start a goroutine to close channel "out" once all the send goroutines are done.
+            go func() {
+                wg.Wait()
+                close(out)
+            }()
+            return out
+        }
+     ```
