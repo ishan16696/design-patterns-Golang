@@ -12,8 +12,7 @@
   * [Singleton](#singleton)
   * [Proxy](#proxy)
   * [Fan-in](#fan-in)
-  <!-- * [Fan-out](#fan-out)
-  * [Observer Pattern](#observer-pattern)  -->
+  * [Observer Pattern](#observer-pattern)
 
 ## Summary
 
@@ -184,11 +183,11 @@ This repository is to capture not only design patterns in action but also any co
         +----------+
         | Producer1|---\
         +----------+    \
-                            \
+                         \   
         +----------+      \       +---------+
-        | Producer2|------->----->| Combined|--> Consumer
+        | Producer2|------->----->| Combined|---> Consumer
         +----------+      /       | Channel |
-                            /        +---------+
+                         /        +---------+
         +----------+    /
         | Producer3|---/
         +----------+
@@ -224,3 +223,38 @@ This repository is to capture not only design patterns in action but also any co
             return out
         }
      ```
+
+## Observer Pattern
+
+  - It's  allows a type instance to "publish" events to other type instances ("observers/listerners/subscribers") who wish to be updated when a particular event occurs. Check example [here](https://github.com/ishan16696/design-patterns-Golang/tree/main/Observer).
+
+   1. Define an Observer/Subscriber.
+
+        ```go
+        // Subscriber is anything that can receive an event.
+        type Subscriber interface {
+            OnNotify(Event)
+        }
+        ```
+
+   2. Define an Notifer/Publisher.
+
+      * It should contain list of subscribers subscribed to it.
+      * A interface to subscribe and unsubscribe.
+      * A interface to notify it's subscribers.
+
+        ```go
+        // Notifier manages observer's registration and notification.
+        type Publisher interface {
+            // Register allows a subscriber to register/subscribe itself to listen for an event.
+            Register(Subscriber)
+            // DeRegister allows a subscriber to de-register/un-subscribe itself from listening for an event.
+            DeRegister(Subscriber)
+            // Notify publishes new events to observer.
+            Notify(Event)
+        }
+        ```
+
+  > [!Note]
+  > Observer is a design pattern whereas Pub/Sub is a messaging architecture, so both are different.
+  > Observer pattern will be used to implement Pub/Sub.
